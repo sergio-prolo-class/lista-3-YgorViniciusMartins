@@ -3,14 +3,11 @@ package ifsc.poo.login;
 public class Usuario {
     private String login;
     private String senha;
-    private static int qtd_usuarios;
 
     public Usuario(String login, String senha){
-        if(!(setLogin(login) || !setSenha(senha))){
+        if(!(setLogin(login) && setSenha(senha))){
             this.login = "";
             this.senha = "";
-        } else {
-            qtd_usuarios++;
         }
     }
 
@@ -37,9 +34,5 @@ public class Usuario {
 
     public String getSenha() {
         return this.senha;
-    }
-
-    public static int getQtd_usuarios() {
-        return qtd_usuarios;
     }
 }

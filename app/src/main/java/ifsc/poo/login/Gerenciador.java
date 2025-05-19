@@ -4,7 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Gerenciador {
-    private static Map<String, String> usuarios = new LinkedHashMap<>();
+    private static Map<String, Usuario> usuarios = new LinkedHashMap<>();
+    private static int qtd_usuarios;
 
     public static boolean cadastraUsuario(String login, String senha){
         if(usuarios.containsKey(login)){
@@ -12,7 +13,8 @@ public class Gerenciador {
         }
         Usuario usuario = new Usuario(login, senha);
         if(!(usuario.getLogin().isEmpty() && usuario.getSenha().isEmpty())){
-            usuarios.put(login, senha);
+            usuarios.put(login, usuario);
+            qtd_usuarios++;
             return true;
         }
         return false;
@@ -27,14 +29,29 @@ public class Gerenciador {
     }
 
     public static boolean autenticaUsuario(String login, String senha){
-        return usuarios.containsKey(login) && usuarios.get(login).equals(senha);
+        return usuarios.containsKey(login) && usuarios.get(login).getSenha().equals(senha);
     }
 
-    public static boolean atualizaSenhaUsuario(String login, String senha){
+    public static boolean alteraSenhaUsuario(String login, String senha){
         if(!usuarios.containsKey(login)){
             return false;
         }
-        usuarios.replace(login, usuarios.get(login), senha);
+        Usuario usuario = new Usuario(login, senha);
+        if(!(usuario.getLogin().isEmpty() && usuario.getSenha().isEmpty())) {
+            usuarios.replace(login, usuarios.get(login), usuario);
+        }
         return true;
+    }
+
+    public static int getQtd_usuarios(){
+        return qtd_usuarios;
+    }
+
+    public static Map<String, Usuario> getUsuarios(){
+        return usuarios;
+    }
+
+    public static void listaUsuarios(){
+        usuarios.forEach((login, usuario) -> System.out.println("Login: " + usuario.getLogin() + ", Senha: " + usuario.getSenha()));
     }
 }
