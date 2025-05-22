@@ -1,22 +1,21 @@
 package ifsc.poo.atendimento;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
 
 public class Cliente {
     private String nome;
     private String numero_telefone;
     private Queue<Solicitacao> solicitacoes = new LinkedList<>();
     private int qtd_solicitacoes;
+    private boolean eh_valido;
 
     public Cliente(String nome, String numero_telefone, String categoria, String descricao){
         Solicitacao solicitacao = new Solicitacao(categoria, descricao);
-        if(!(setNome(nome) && setNumeroTelefone(numero_telefone) && solicitacao.solicitacaoEhValida())){
-            this.nome = "";
-            this.numero_telefone = "";
+        if(!(setNome(nome) && setNumeroTelefone(numero_telefone) && solicitacao.EhValida())){
+            this.eh_valido = false;
         }
+        this.eh_valido = true;
         this.solicitacoes.add(solicitacao);
         this.qtd_solicitacoes++;
     }
@@ -47,7 +46,7 @@ public class Cliente {
 
     public boolean novaSolicitacao(String categoria, String descricao){
         Solicitacao solicitacao = new Solicitacao(categoria, descricao);
-        if(!(solicitacao.solicitacaoEhValida())){
+        if(!(solicitacao.EhValida())){
             return false;
         }
         this.solicitacoes.add(solicitacao);
@@ -59,8 +58,8 @@ public class Cliente {
         return this.qtd_solicitacoes;
     }
 
-    public boolean clienteEhValido(){
-        return !(this.nome.isEmpty() && this.numero_telefone.isEmpty());
+    public boolean EhValido(){
+        return this.eh_valido;
     }
 
 }

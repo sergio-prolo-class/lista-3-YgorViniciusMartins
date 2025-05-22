@@ -9,13 +9,14 @@ public class Solicitacao {
      "informação",
      "atendimento financeiro"
     };
+    private boolean eh_valida;
 
 
     public Solicitacao(String categoria, String descricao){
         if(!(setCategoria(categoria) && setDescricao(descricao))){
-            this.categoria = "";
-            this.descricao = "";
+            this.eh_valida = false;
         }
+        this.eh_valida = true;
     }
 
     public boolean setCategoria(String categoria) {
@@ -52,7 +53,7 @@ public class Solicitacao {
         return false;
     }
 
-    public boolean solicitacaoEhValida(){
-        return !(this.categoria.isEmpty() && this.descricao.isEmpty());
+    public boolean EhValida(){
+        return this.eh_valida;
     }
 }
