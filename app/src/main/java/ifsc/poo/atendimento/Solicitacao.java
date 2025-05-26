@@ -1,5 +1,8 @@
 package ifsc.poo.atendimento;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Solicitacao {
     private String categoria;
     private String descricao;
@@ -10,6 +13,7 @@ public class Solicitacao {
      "atendimento financeiro"
     };
     private boolean eh_valida;
+    Map<String, Integer> n_solicitacoes_cada = new HashMap<>();
 
 
     public Solicitacao(String categoria, String descricao){
@@ -17,6 +21,7 @@ public class Solicitacao {
             this.eh_valida = false;
         }
         this.eh_valida = true;
+        n_solicitacoes_cada.put(categoria, n_solicitacoes_cada.get(categoria) + 1);
     }
 
     public boolean setCategoria(String categoria) {

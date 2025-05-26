@@ -61,5 +61,4 @@ public class Cliente {
     public boolean EhValido(){
         return this.eh_valido;
     }
-
 }

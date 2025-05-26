@@ -1,13 +1,11 @@
 package ifsc.poo.atendimento;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 public class Gerenciador {
     private Queue<Cliente> fila = new LinkedList<>();
     private Map<String, Cliente> clientes = new HashMap<>();
+    private List<Cliente> clientes_atendidos = new ArrayList<>();
 
     public boolean nova_solicitacao(String nome, String num_telefone, String categoria, String descricao){
         Cliente cliente = new Cliente(nome, num_telefone, categoria, descricao);
@@ -31,13 +29,58 @@ public class Gerenciador {
         return true;
     }
 
-    public boolean proximo_cliente(){
+    public boolean chamaCliente(){
         if(fila.isEmpty()){
             return false;
         }
         Cliente cliente = fila.element();
+        clientes_atendidos.add(cliente);
         fila.remove();
 
         return true;
+    }
+
+    public int getTamanhoFila(){
+        return fila.size();
+    }
+
+    public String quemEhProximo(){
+        if(fila.peek() != null) {
+            return fila.peek().getNome();
+        }
+        return "";
+    }
+
+    public Set<String> listaNumeroClientesRegistrados(){
+        Set<String> lista = new LinkedHashSet<>();
+        clientes.forEach((numero, cliente) -> lista.add(numero));
+        return lista;
+    }
+
+    public Set<String> listaNumerosClientesEsperando(){
+        Set<String> lista = new LinkedHashSet<>();
+        fila.forEach((cliente) -> lista.add(cliente.getNumero_telefone()));
+        return lista;
+    }
+
+    public Set<String> nomesClientesAtendidos(){
+        Set<String> nomes = new LinkedHashSet<>();
+        clientes_atendidos.forEach((cliente) -> nomes.add(cliente.getNome()));
+        return nomes;
+    }
+
+    public String geraRelatorio(){
+        String relatorio;
+        Solicitacao solicitacao = new Solicitacao(".",".");
+        relatorio = "Número total de solicitações registradas: " + (fila.size() + clientes_atendidos.size()) + "\n";
+        relatorio += "Número total de solicitações atendidas: " + clientes_atendidos.size() + "\n";
+        relatorio += "Número total de solicitações em espera: " + fila.size() + "\n";
+
+        relatorio += "Distribuição percentual:\n";
+        for (int i = 0; i < solicitacao.getCategoria().length(); i++) {
+        }
+
+
+        return relatorio;
     }
 }
