@@ -6,22 +6,28 @@ import java.util.Map;
 public class Solicitacao {
     private String categoria;
     private String descricao;
-    private String[] categorias =
+    private static String[] categorias =
     {
      "suporte técnico",
      "informação",
      "atendimento financeiro"
     };
     private boolean eh_valida;
-    Map<String, Integer> n_solicitacoes_cada = new HashMap<>();
+    private static Map<String, Integer> n_solicitacoes_cada = new HashMap<>();
 
 
     public Solicitacao(String categoria, String descricao){
+        if(n_solicitacoes_cada.isEmpty()){
+            for (String chaves : categorias) {
+                n_solicitacoes_cada.put(chaves, 0);
+            }
+        }
         if(!(setCategoria(categoria) && setDescricao(descricao))){
             this.eh_valida = false;
+        } else {
+            this.eh_valida = true;
+            n_solicitacoes_cada.put(categoria.toLowerCase(), n_solicitacoes_cada.get(categoria.toLowerCase()) + 1);
         }
-        this.eh_valida = true;
-        n_solicitacoes_cada.put(categoria, n_solicitacoes_cada.get(categoria) + 1);
     }
 
     public boolean setCategoria(String categoria) {
@@ -60,5 +66,17 @@ public class Solicitacao {
 
     public boolean EhValida(){
         return this.eh_valida;
+    }
+
+    public int getQtdCategorias(){
+        return categorias.length;
+    }
+
+    public String[] getCategorias(){
+        return categorias;
+    }
+
+    public int getNAparicoesCategoria(String categoria){
+        return n_solicitacoes_cada.get(categoria);
     }
 }

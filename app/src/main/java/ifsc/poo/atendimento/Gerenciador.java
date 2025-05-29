@@ -77,7 +77,9 @@ public class Gerenciador {
         relatorio += "Número total de solicitações em espera: " + fila.size() + "\n";
 
         relatorio += "Distribuição percentual:\n";
-        for (int i = 0; i < solicitacao.getCategoria().length(); i++) {
+        String[] categorias = solicitacao.getCategorias();
+        for (int i = 0; i < solicitacao.getQtdCategorias(); i++) {
+            relatorio += categorias[i] + ": " + (((float)solicitacao.getNAparicoesCategoria(categorias[i]) / (fila.size() + clientes_atendidos.size()) * 100)) + "%" + "\n";
         }
 
 
