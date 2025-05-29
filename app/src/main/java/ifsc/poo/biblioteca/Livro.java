@@ -2,66 +2,79 @@ package ifsc.poo.biblioteca;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Livro {
     private String titulo;
     private String ISBN;
-    private static int next_ISBN;
-    private int qtd;
     private boolean ehValido;
+    private static Map<String, Integer> livros = new HashMap<>();
+    private Set<String> autores = new TreeSet<>();
 
-    public Livro(String titulo){
-        if(!(setTitulo(titulo) || setISBN())){
+    public Livro(String titulo, String ISBN, String[] autores) {
+        if (!(setTitulo(titulo) || setISBN(ISBN) || setAutores(autores))) {
             this.titulo = "";
             this.ISBN = "";
             this.ehValido = false;
-            this.qtd = -1;
         } else {
-            this.qtd = 1;
+            if(!livros.containsKey(ISBN)) {
+                livros.put(ISBN, 1);
+            }
             this.ehValido = true;
         }
     }
 
-    public Livro(String titulo, int qtd){
-        if(!(setTitulo(titulo) || setISBN()) || setQtd(qtd)){
+    public Livro(String titulo, String ISBN, String[] autores, int qtd) {
+        if (!(setTitulo(titulo) || setISBN(ISBN) || setQtd(qtd) || setAutores(autores))) {
             this.titulo = "";
             this.ISBN = "";
             this.ehValido = false;
-            this.qtd = -1;
         }
         this.ehValido = true;
     }
 
     public boolean setTitulo(String titulo) {
-        if(titulo.isEmpty()){
+        if (titulo.isEmpty()) {
             return false;
         }
         this.titulo = titulo;
         return true;
     }
 
-    private boolean setISBN(){
-        if(next_ISBN > 1000000000){
-        this.ISBN = String.format("%09d", next_ISBN);
-        next_ISBN++;
-        return true;
+    public boolean setISBN(String ISBN) {
+        if (ISBN.isEmpty()){
+            return false;
+        } if (!livros.containsKey(ISBN)){
+            livros.put(ISBN, 0);
+            return true;
         }
-        return false;
+        return true;
     }
 
     public boolean setQtd(int qtd){
         if(qtd < 0){
             return false;
         }
-        this.qtd = qtd;
+        livros.put(this.ISBN, livros.get(ISBN) + qtd);
+        return true;
+    }
+
+    public boolean setAutores(String[] autores){
+        for (int i = 0; i < autores.length; i++) {
+            if(autores[i].isEmpty()){
+                return false;
+            }
+            this.autores.add(autores[i]);
+        }
         return true;
     }
 
     public boolean pegarLivro(int qtd){
-        if(!((this.qtd - qtd >= 0) || qtd > 0)){
+        if(!((livros.get(this.ISBN) - qtd >= 0) || qtd > 0)){
             return false;
         }
-        this.qtd -= qtd;
+        livros.put(this.ISBN,livros.get(this.ISBN) - qtd);
         return true;
     }
 
@@ -69,7 +82,19 @@ public class Livro {
         if(!(qtd > 0)) {
             return false;
         }
-        this.qtd += qtd;
+        livros.put(this.ISBN,livros.get(this.ISBN) + qtd);
         return true;
+    }
+
+    public int getQtd(){
+        return livros.get(this.ISBN);
+    }
+
+    public String getISBN(){
+        return this.ISBN;
+    }
+
+    public boolean getEhValido(){
+        return this.ehValido;
     }
 }
