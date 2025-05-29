@@ -6,7 +6,12 @@ public class Gerenciador {
     private static Map<String, Livro> livros = new HashMap<>(); //chave: ISBN
     private static Map<String,Leitor> leitores = new HashMap<>(); //chave: id
 
-    public boolean adcionarLivro(String titulo, String ISBN, String[] autores){
+    public boolean adcionaAutor (String nome, String idioma){
+        Autor autor = new Autor(nome, idioma);
+        return true;
+    }
+
+    public boolean adcionarLivro(String titulo, String ISBN, Autor[] autores){
         Livro livro = new Livro(titulo, ISBN, autores);
         if(livros.containsKey(livro.getISBN())){
             return true;

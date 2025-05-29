@@ -1,18 +1,15 @@
 package ifsc.poo.biblioteca;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Livro {
     private String titulo;
     private String ISBN;
     private boolean ehValido;
     private static Map<String, Integer> livros = new HashMap<>();
-    private Set<String> autores = new TreeSet<>();
+    private Set<Autor> autores = new LinkedHashSet<>();
 
-    public Livro(String titulo, String ISBN, String[] autores) {
+    public Livro(String titulo, String ISBN, Autor[] autores) {
         if (!(setTitulo(titulo) || setISBN(ISBN) || setAutores(autores))) {
             this.titulo = "";
             this.ISBN = "";
@@ -25,7 +22,7 @@ public class Livro {
         }
     }
 
-    public Livro(String titulo, String ISBN, String[] autores, int qtd) {
+    public Livro(String titulo, String ISBN, Autor[] autores, int qtd) {
         if (!(setTitulo(titulo) || setISBN(ISBN) || setQtd(qtd) || setAutores(autores))) {
             this.titulo = "";
             this.ISBN = "";
@@ -60,11 +57,8 @@ public class Livro {
         return true;
     }
 
-    public boolean setAutores(String[] autores){
+    public boolean setAutores(Autor[] autores){
         for (int i = 0; i < autores.length; i++) {
-            if(autores[i].isEmpty()){
-                return false;
-            }
             this.autores.add(autores[i]);
         }
         return true;
