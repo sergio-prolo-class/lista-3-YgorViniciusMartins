@@ -67,6 +67,8 @@ Cuida da criação e das administrações do cliente
 
 Segue o diagrama UML deste exercício: 
 
+![Image](https://github.com/user-attachments/assets/abcd1a42-eaa0-4f4a-8037-2e7dc44e37e2)
+
 ---
 
 ## Exercicio 3
