@@ -11,6 +11,7 @@ public class Livro {
 
     public Livro(String titulo, String ISBN, Autor[] autores) {
         setISBN(ISBN);
+        setAutores(autores);
         if (!(setTitulo(titulo) || setISBN(ISBN) || setAutores(autores))) {
             this.titulo = "";
             this.ISBN = "";

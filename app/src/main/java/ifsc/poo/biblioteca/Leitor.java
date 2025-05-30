@@ -21,6 +21,8 @@ public class Leitor {
             this.ehValido = false;
         }
         setId();
+        setEndereco(endereco);
+        setTelefone(telefone);
         this.ehValido = true;
     }
 
