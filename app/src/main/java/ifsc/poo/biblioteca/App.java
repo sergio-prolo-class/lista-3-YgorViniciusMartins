@@ -15,7 +15,7 @@ public class App {
         gerenciador.cadastroLeitor("A", "a" , "123456789");
         gerenciador.cadastroLeitor("C", "c" , "135792468");
         //Adicionando autores
-        gerenciador.adcionaAutor("B ", "b");
+        gerenciador.adcionaAutor("B", "b");
         gerenciador.adcionaAutor("Z", "z");
         gerenciador.adcionaAutor("X", "x");
         gerenciador.adcionaAutor("V", "v");
@@ -27,7 +27,7 @@ public class App {
         //Adicionando livrosd
         gerenciador.adcionarLivro("L", "0001", gerenciador.getAutor("Z"));
         gerenciador.adcionarLivro("K", "0002", gerenciador.getAutor("X"));
-        gerenciador.adcionarLivro("J", "0003", gerenciador.getAutor("V"), 0);
+        gerenciador.adcionarLivro("J", "0003", gerenciador.getAutor("V"), 2);
         gerenciador.adcionarLivro("H", "0004", gerenciador.getAutor("B"));
         gerenciador.adcionarLivro("G", "0005", gerenciador.getAutor("X"));
         gerenciador.adcionarLivro("F", "0006", autores_ex);
@@ -69,8 +69,11 @@ public class App {
         System.out.println("Livros ordenados por Título: ");
         gerenciador.listaLivrosOrdenadosTitulo();
 
+        System.out.print("Livros ordenados por Autor: ");
+        gerenciador.listaLivrosOrdenadosAutor();
+
         System.out.println("Livros ordenados por ISBN: ");
-        //gerenciador.listaLivrosOrdenadosISBN();
+        gerenciador.listaLivrosOrdenadosISBN();
 
 
 

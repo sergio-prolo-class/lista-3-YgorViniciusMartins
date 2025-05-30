@@ -6,7 +6,7 @@ public class Gerenciador {
     private static Map<String,Livro> livros = new HashMap<>(); //chave: ISBN
     private static Map<String,Leitor> leitores = new HashMap<>(); //chave: id
     private static Map<String,Autor> autores = new HashMap<>();
-   private static Map<String,String> emprestimos = new HashMap<>(); //chave: id
+   private static Map<String,Emprestimo> emprestimos = new HashMap<>(); //chave: id
 
     public boolean adcionaAutor (String nome, String idioma){
         Autor autor = new Autor(nome, idioma);
@@ -70,9 +70,6 @@ public class Gerenciador {
         boolean b = leitor.possuiLivro(ISBN);
         boolean c = leitor.getQtdLivros() >= 5;
         boolean d = livros.get(ISBN).getQtd() < 0;
-
-
-
         if(!livros.containsKey(ISBN) || leitor.possuiLivro(ISBN) || leitor.getQtdLivros() >= 5 || livros.get(ISBN).getQtd() < 0){
             return false;
         }
@@ -148,11 +145,11 @@ public class Gerenciador {
         livros_ordenados.forEach((isbn) -> System.out.println(isbn));
     }
 
-//    public void listaLivrosOrdenadosAutor(){
-//        Set<String> livros_ordenados = new TreeSet<>();
-//        livros.forEach((isbn, livro) -> livros_ordenados.add(livro.getAutores());
-//        livros_ordenados.forEach((isbn) -> System.out.println(isbn));
-//    }
+    public void listaLivrosOrdenadosAutor(){
+        Set<String> livros_ordenados = new TreeSet<>();
+        livros.forEach((isbn, livro) -> livros_ordenados.add(livro.getNomesAutores()));
+        livros_ordenados.forEach((nome) -> System.out.println(nome));
+    }
 
     public void listaLivrosOrdenadosTitulo(){
         Set<String> livros_ordenados = new TreeSet<>();

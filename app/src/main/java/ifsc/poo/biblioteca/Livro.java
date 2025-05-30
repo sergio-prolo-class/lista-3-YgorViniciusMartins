@@ -7,7 +7,7 @@ public class Livro {
     private String ISBN;
     private boolean ehValido;
     private static Map<String, Integer> livros = new HashMap<>();
-    private Set<Autor> autores = new LinkedHashSet<>();
+    private List<Autor> autores = new LinkedList<>();
 
     public Livro(String titulo, String ISBN, Autor[] autores) {
         setISBN(ISBN);
@@ -25,6 +25,7 @@ public class Livro {
 
     public Livro(String titulo, String ISBN, Autor autor) {
         setISBN(ISBN);
+        setAutores(autor);
         if (!(setTitulo(titulo) || setISBN(ISBN) || setAutores(autor))) {
             this.titulo = "";
             this.ISBN = "";
@@ -85,12 +86,12 @@ public class Livro {
         return true;
     }
 
-    public boolean setAutores(Autor[] autores){
-        for (int i = 0; i < autores.length; i++) {
-            if(!autores[i].getEhValido()){
+    public boolean setAutores(Autor[] autores_ent){
+        for (int i = 0; i < autores_ent.length; i++) {
+            if(!autores_ent[i].getEhValido() || autores.contains(autores_ent[i])){
                 continue;
             }
-            this.autores.add(autores[i]);
+            this.autores.add(autores_ent[i]);
         }
         return true;
     }
@@ -135,7 +136,11 @@ public class Livro {
         return this.titulo;
     }
 
-    public Set<Autor> getAutores(){
-        return autores;
+    public String getNomesAutores(){
+        String nomes = "";
+        for (int i = 0; i < this.autores.size(); i++) {
+            nomes += this.autores.get(i).getNome();
+        }
+        return nomes;
     }
 }
