@@ -1,6 +1,8 @@
 package ifsc.poo.biblioteca;
 
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Leitor {
     private String nome;
@@ -8,8 +10,8 @@ public class Leitor {
     private String telefone;
     private String id;
     private boolean ehValido;
-    private static int next_id;
-
+    private static int next_id = 0;
+    private Set<String> livros = new LinkedHashSet<>(); //Armazena ISBN
 
     public Leitor(String nome, String endereco, String telefone){
         if(!(setNome(nome) || setEndereco(endereco) || setTelefone(telefone))){
@@ -72,4 +74,19 @@ public class Leitor {
         return this.ehValido;
     }
 
+    public void pegaLivro(String ISBN){
+        livros.add(ISBN);
+    }
+
+    public void devolveLivro(String ISBN){
+        livros.remove(ISBN);
+    }
+
+    public boolean possuiLivro(String ISBN){
+        return livros.contains(ISBN);
+    }
+
+    public int getQtdLivros(){
+        return this.livros.size();
+    }
 }

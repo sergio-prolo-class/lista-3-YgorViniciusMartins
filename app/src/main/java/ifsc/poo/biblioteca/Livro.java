@@ -10,7 +10,22 @@ public class Livro {
     private Set<Autor> autores = new LinkedHashSet<>();
 
     public Livro(String titulo, String ISBN, Autor[] autores) {
+        setISBN(ISBN);
         if (!(setTitulo(titulo) || setISBN(ISBN) || setAutores(autores))) {
+            this.titulo = "";
+            this.ISBN = "";
+            this.ehValido = false;
+        } else {
+            if(!livros.containsKey(ISBN)) {
+                livros.put(ISBN, 1);
+            }
+            this.ehValido = true;
+        }
+    }
+
+    public Livro(String titulo, String ISBN, Autor autor) {
+        setISBN(ISBN);
+        if (!(setTitulo(titulo) || setISBN(ISBN) || setAutores(autor))) {
             this.titulo = "";
             this.ISBN = "";
             this.ehValido = false;
@@ -31,6 +46,18 @@ public class Livro {
         this.ehValido = true;
     }
 
+    public Livro(String titulo, String ISBN, Autor autor, int qtd) {
+        if (!(setTitulo(titulo) || setISBN(ISBN) || setQtd(qtd) || setAutores(autor))) {
+            this.titulo = "";
+            this.ISBN = "";
+            this.ehValido = false;
+        }
+        setISBN(ISBN);
+        setQtd(qtd);
+        setAutores(autor);
+        this.ehValido = true;
+    }
+
     public boolean setTitulo(String titulo) {
         if (titulo.isEmpty()) {
             return false;
@@ -44,9 +71,10 @@ public class Livro {
             return false;
         } if (!livros.containsKey(ISBN)){
             livros.put(ISBN, 0);
+            this.ISBN = ISBN;
             return true;
         }
-        return true;
+        return false;
     }
 
     public boolean setQtd(int qtd){
@@ -59,8 +87,19 @@ public class Livro {
 
     public boolean setAutores(Autor[] autores){
         for (int i = 0; i < autores.length; i++) {
+            if(!autores[i].getEhValido()){
+                continue;
+            }
             this.autores.add(autores[i]);
         }
+        return true;
+    }
+
+    public boolean setAutores(Autor autor){
+        if(!autor.getEhValido()){
+            return false;
+        }
+        this.autores.add(autor);
         return true;
     }
 
@@ -90,5 +129,13 @@ public class Livro {
 
     public boolean getEhValido(){
         return this.ehValido;
+    }
+
+    public String getTitulo(){
+        return this.titulo;
+    }
+
+    public Set<Autor> getAutores(){
+        return autores;
     }
 }

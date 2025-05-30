@@ -10,6 +10,7 @@ public class Autor {
     private Set<Livro> livros = new LinkedHashSet<>(); //Armazena todos os livros vinculados a este autor
 
     public Autor(String nome, String idioma){ //Inicializa autor sem livros
+        setIdioma(idioma); //Por algum motivo se apenas dentro do if, ele não seta o idioma
         if(!(setNome(nome) || setIdioma(idioma))){ //Se não conseguir setar os valores, inutiliza o autor
             this.nome = "";
             this.idioma = "";
