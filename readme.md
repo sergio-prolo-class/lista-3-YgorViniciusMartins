@@ -108,3 +108,5 @@ Cuida das informações referentes ao livro, tal como seu nome, seu código ISBN
 ### Diagrama UML
 
 Segue o diagrama UML deste exercício:
+
+![Image](https://github.com/user-attachments/assets/a090f8d5-a0eb-4250-afce-fa9f3e56a0a8)
