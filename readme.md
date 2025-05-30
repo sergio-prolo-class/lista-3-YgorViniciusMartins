@@ -36,6 +36,7 @@ Classe responsável por gerar os usuários
 
 Segue o diagrama UML deste exercício: 
 
+![Image](https://github.com/user-attachments/assets/5b6ec862-23ce-4ab2-b678-3433259fe63d)
 
 ---
 
